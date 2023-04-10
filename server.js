@@ -13,11 +13,11 @@ const roleRouter = require("./routes/role.routes");
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use(roleRouter);
-app.use(permissionRouter);
-app.use(userRoutes);
-app.use(orderRouter);
-app.use(productRouter);
+app.use("/api/v1/role", roleRouter);
+app.use("/api/v1/permission", permissionRouter);
+app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/order", orderRouter);
+app.use("/api/v1/product", productRouter);
 
 app.use((error, req, res, next) => {
   res.send(error.message);
@@ -26,7 +26,7 @@ const PORT = process.env.PORT || 3000;
 
 sequelize.query("SET FOREIGN_KEY_CHECKS = 0", { raw: true }).then(() => {
   sequelize
-    .sync({ force: true })
+    .sync({ alter: true })
     .then(function () {
       return sequelize.query("SET FOREIGN_KEY_CHECKS = 1", { raw: true });
     })
