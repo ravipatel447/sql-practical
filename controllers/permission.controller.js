@@ -1,28 +1,38 @@
-const Permission = require("../models/permission.model");
+const permissionService = require("../services/permission.service");
 
 module.exports = {
   createPermission: async (req, res, next) => {
     try {
-      const permission = await Permission.create(req.body);
-      res.send(permission);
+      const permission = await permissionService.createPermission(req.body);
+      res.status(201).json({ data: { permission }, error: false });
+    } catch (error) {
+      next(error);
+    }
+  },
+  createBulkPermissions: async (req, res, next) => {
+    try {
+      const roles = await permissionService.createBulkPermissions(
+        Array.isArray(req.body) ? req.body : []
+      );
+      res.status(201).json({ data: { roles }, error: false });
     } catch (error) {
       next(error);
     }
   },
   getAllPermissions: async (req, res, next) => {
     try {
-      const permission = await Permission.findAll();
-      res.send(permission);
+      const permissions = await permissionService.getPermissions();
+      res.status(200).json({ data: { permissions }, error: false });
     } catch (error) {
       next(error);
     }
   },
   getPermissionById: async (req, res, next) => {
     try {
-      const permission = await Permission.findByPk(req.params.id);
-      res.send(
-        permission ? permission : `No Permission found on id ${req.params.id}`
+      const permission = await permissionService.findPermissionById(
+        req.params.id
       );
+      res.status(200).json({ data: { permission }, error: false });
     } catch (error) {
       next(error);
     }

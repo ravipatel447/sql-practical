@@ -14,9 +14,8 @@ const Tokens = sequelize.define("Tokens", {
     onDelete: "CASCADE",
   },
   token: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT("long"),
     allowNull: false,
-    unique: true,
   },
 });
 

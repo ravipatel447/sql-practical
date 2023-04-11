@@ -1,26 +1,36 @@
-const Role = require("../models/role.model");
+const roleService = require("../services/role.service");
 
 module.exports = {
   createRole: async (req, res, next) => {
     try {
-      const role = await Role.create(req.body);
-      res.send(role);
+      const role = await roleService.createRole(req.body);
+      res.status(201).json({ data: { role }, error: false });
+    } catch (error) {
+      next(error);
+    }
+  },
+  createBulkRole: async (req, res, next) => {
+    try {
+      const roles = await roleService.createBulkRole(
+        Array.isArray(req.body) ? req.body : []
+      );
+      res.status(201).json({ data: { roles }, error: false });
     } catch (error) {
       next(error);
     }
   },
   getRoles: async (req, res, next) => {
     try {
-      const role = await Role.findAll();
-      res.send(role);
+      const roles = await roleService.getRoles();
+      res.status(201).json({ data: roles, error: false });
     } catch (error) {
       next(error);
     }
   },
   getRoleById: async (req, res, next) => {
     try {
-      const role = await Role.findByPk(req.params.id);
-      res.send(role ? role : "role not Found");
+      const role = await roleService.findRoleById(req.params.id);
+      res.status(201).json({ data: role, error: false });
     } catch (error) {
       next(error);
     }
