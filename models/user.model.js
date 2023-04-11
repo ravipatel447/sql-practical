@@ -49,6 +49,7 @@ const User = sequelize.define("User", {
       model: Role,
       key: "role_id",
     },
+    defaultValue: 1,
   },
 });
 

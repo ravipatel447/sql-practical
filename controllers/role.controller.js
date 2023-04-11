@@ -9,10 +9,18 @@ module.exports = {
       next(error);
     }
   },
-  getRole: async (req, res, next) => {
+  getRoles: async (req, res, next) => {
+    try {
+      const role = await Role.findAll();
+      res.send(role);
+    } catch (error) {
+      next(error);
+    }
+  },
+  getRoleById: async (req, res, next) => {
     try {
       const role = await Role.findByPk(req.params.id);
-      res.send(role);
+      res.send(role ? role : "role not Found");
     } catch (error) {
       next(error);
     }
