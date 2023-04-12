@@ -9,16 +9,6 @@ module.exports = {
       next(error);
     }
   },
-  createBulkPermissions: async (req, res, next) => {
-    try {
-      const roles = await permissionService.createBulkPermissions(
-        Array.isArray(req.body) ? req.body : []
-      );
-      res.status(201).json({ data: { roles }, error: false });
-    } catch (error) {
-      next(error);
-    }
-  },
   getAllPermissions: async (req, res, next) => {
     try {
       const permissions = await permissionService.getPermissions();

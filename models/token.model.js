@@ -5,12 +5,10 @@ const Tokens = sequelize.define("Tokens", {
   user_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    unique: false,
     references: {
       model: User,
       key: "user_id",
     },
-    primaryKey: true,
     onDelete: "CASCADE",
   },
   token: {

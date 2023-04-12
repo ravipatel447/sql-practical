@@ -54,9 +54,23 @@ const User = sequelize.define(
         user.password = await bcrypt.hash(user.password, 8);
       },
       beforeUpdate: async (user) => {
-        user.password = await bcrypt.hash(user.password, 8);
+        if (user.changed("password")) {
+          user.password = await bcrypt.hash(user.password, 8);
+        }
       },
     },
+    // defaultScope: {
+    //   attributes: {
+    //     exclude: ["password"],
+    //   },
+    // },
+    // scopes: {
+    //   withPassword: {
+    //     attributes: {
+    //       include: ["password"],
+    //     },
+    //   },
+    // },
   }
 );
 

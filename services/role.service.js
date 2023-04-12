@@ -1,12 +1,21 @@
-const { Role } = require("../models");
+const { Role, Permission, RolePermission } = require("../models");
 module.exports = {
   createRole: async (body) => {
     const role = await Role.create(body);
+    const permissions = await Permission.findAll({ raw: true });
+    Promise.all(
+      permissions.map(async (permission) => {
+        await RolePermission.create({
+          role_id: role.role_id,
+          permission_id: permission.permission_id,
+          create: false,
+          read: false,
+          update: false,
+          delete: false,
+        });
+      })
+    );
     return role;
-  },
-  createBulkRole: async (body) => {
-    const roles = await Role.bulkCreate(body);
-    return roles;
   },
   getRoles: async () => {
     const roles = await Role.findAll();

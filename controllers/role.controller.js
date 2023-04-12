@@ -9,16 +9,6 @@ module.exports = {
       next(error);
     }
   },
-  createBulkRole: async (req, res, next) => {
-    try {
-      const roles = await roleService.createBulkRole(
-        Array.isArray(req.body) ? req.body : []
-      );
-      res.status(201).json({ data: { roles }, error: false });
-    } catch (error) {
-      next(error);
-    }
-  },
   getRoles: async (req, res, next) => {
     try {
       const roles = await roleService.getRoles();

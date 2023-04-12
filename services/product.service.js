@@ -1,34 +1,34 @@
-const { Product, Product } = require("../models");
+const { Product } = require("../models");
 module.exports = {
   createProduct: async (body, user) => {
-    const user = await Product.create({ ...body, seller_id: user.user_id });
-    return user;
+    const product = await Product.create({ ...body, seller_id: user.user_id });
+    return product;
   },
   getProducts: async () => {
-    const users = await Product.findAll();
-    return users;
+    const products = await Product.findAll();
+    return products;
   },
   findById: async (id) => {
-    const user = await Product.findByPk(id);
-    if (!user) {
+    const product = await Product.findByPk(id);
+    if (!product) {
       throw new Error("Product not Found");
     }
-    return user;
+    return product;
   },
   updateProduct: async (id, body) => {
-    const user = await Product.findByPk(id);
-    if (!user) {
+    const product = await Product.findByPk(id);
+    if (!product) {
       throw new Error("Product not Found");
     }
-    await user.update({ ...body, role_id: user.role_id });
-    return user;
+    await product.update({ ...body, seller_id: product.seller_id });
+    return product;
   },
   deleteProduct: async (id) => {
-    const user = await Product.findByPk(id);
-    if (!user) {
+    const product = await Product.findByPk(id);
+    if (!product) {
       throw new Error("Product not Found");
     }
-    const deleted = await user.destroy();
+    const deleted = await product.destroy();
     return deleted;
   },
 };

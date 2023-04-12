@@ -34,7 +34,7 @@ app.use((error, req, res, next) => {
 // sequelize and server start
 sequelize.query("SET FOREIGN_KEY_CHECKS = 0", { raw: true }).then(() => {
   sequelize
-    .sync({ alter: true })
+    .sync()
     .then(function () {
       return sequelize.query("SET FOREIGN_KEY_CHECKS = 1", { raw: true });
     })
