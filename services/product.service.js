@@ -15,16 +15,26 @@ module.exports = {
     }
     return product;
   },
-  updateProduct: async (id, body) => {
-    const product = await Product.findByPk(id);
+  updateProduct: async (id, body, user) => {
+    const product = await Product.findOne({
+      where: {
+        product_id: id,
+        seller_id: user.user_id,
+      },
+    });
     if (!product) {
       throw new Error("Product not Found");
     }
-    await product.update({ ...body, seller_id: product.seller_id });
+    await product.update({ ...body, seller_id: user.user_id });
     return product;
   },
-  deleteProduct: async (id) => {
-    const product = await Product.findByPk(id);
+  deleteProduct: async (id, user) => {
+    const product = await Product.findOne({
+      where: {
+        product_id: id,
+        seller_id: user.user_id,
+      },
+    });
     if (!product) {
       throw new Error("Product not Found");
     }

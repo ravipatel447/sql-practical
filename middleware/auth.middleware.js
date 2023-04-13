@@ -14,6 +14,7 @@ const auth = async (req, res, next) => {
     });
     if (!find) throw new Error();
     req.user = user;
+    req.token = token;
     next();
   } catch (error) {
     error.message = "unauthorized";

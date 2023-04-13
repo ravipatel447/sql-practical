@@ -11,6 +11,7 @@ const {
   productRouter,
   roleRouter,
   rolePermissionRouter,
+  assignmentRouter,
 } = require("./routes/index.routes");
 const PORT = process.env.PORT || 3000;
 require("./models/assosiation");
@@ -25,6 +26,7 @@ app.use("/api/v1/user", userRouter);
 app.use("/api/v1/order", orderRouter);
 app.use("/api/v1/product", productRouter);
 app.use("/api/v1/rolepermission", rolePermissionRouter);
+app.use("/api/v1/assignment", assignmentRouter);
 
 // general error handler
 app.use((error, req, res, next) => {

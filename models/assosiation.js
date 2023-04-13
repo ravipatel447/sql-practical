@@ -43,7 +43,7 @@ Token.belongsTo(User, { foreignKey: "user_id", onDelete: "CASCADE" });
 
 //---------------- user order reletionship (one to many) -------------------------
 User.hasMany(Order, { foreignKey: "customer_id", onDelete: "CASCADE" });
-Order.belongsTo(Order, { foreignKey: "customer_id", onDelete: "CASCADE" });
+Order.belongsTo(User, { foreignKey: "customer_id", onDelete: "CASCADE" });
 
 //---------------- user product reletionship (one to many) -------------------------
 User.hasMany(Product, { foreignKey: "seller_id", onDelete: "CASCADE" });

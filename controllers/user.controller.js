@@ -22,6 +22,21 @@ module.exports = {
       next(error);
     }
   },
+  logoutUser: async (req, res, next) => {
+    try {
+      const logout = await userService.logoutUser(req.token, req.user);
+      res.status(200).json({
+        data: {
+          message: logout
+            ? "User has been logged Out"
+            : "Failed to Logging out",
+        },
+        error: false,
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
   changeRole: async (req, res, next) => {
     try {
       const user = await userService.changeRoleofUser(
@@ -29,6 +44,21 @@ module.exports = {
         req.body.role_id
       );
       res.status(200).json({ data: { user }, error: false });
+    } catch (error) {
+      next(error);
+    }
+  },
+  deleteUser: async (req, res, next) => {
+    try {
+      const deleted = await userService.deleteUser(req.user);
+      res
+        .status(200)
+        .json({
+          message: deleted
+            ? "User has been delete successfully"
+            : "server error",
+          error: false,
+        });
     } catch (error) {
       next(error);
     }

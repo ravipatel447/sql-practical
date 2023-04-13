@@ -17,6 +17,17 @@ module.exports = {
     if (!checkingPassword) throw new Error("Wrong email password combination");
     return user;
   },
+  logoutUser: async (token, user) => {
+    const Dtoken = await Token.findOne({
+      where: {
+        token,
+        user_id: user.user_id,
+      },
+    });
+    if (!Dtoken) throw new Error("we can not able to find token");
+    await Dtoken.destroy();
+    return true;
+  },
   getUsers: async () => {
     const users = await User.findAll();
     return users;
@@ -48,8 +59,10 @@ module.exports = {
     await user.update({ role_id: willRoleId });
     return user;
   },
-  deleteUser: async (id) => {
-    const user = await User.findByPk(id);
+  deleteUser: async (user) => {
+    const user = await User.findOne({
+      user_id: user.user_id,
+    });
     if (!user) {
       throw new Error("User not Found");
     }

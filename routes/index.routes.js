@@ -4,6 +4,6 @@ module.exports = {
   productRouter: require("./product.routes"),
   userRouter: require("./user.routes"),
   roleRouter: require("./role.routes"),
-  orderDetailRouter: require("./orderDetail.routes"),
   rolePermissionRouter: require("./rolePermission.routes"),
+  assignmentRouter: require("./assignment.routes"),
 };
