@@ -60,13 +60,13 @@ module.exports = {
     return user;
   },
   deleteUser: async (user) => {
-    const user = await User.findOne({
+    const deletedUser = await User.findOne({
       user_id: user.user_id,
     });
-    if (!user) {
+    if (!deletedUser) {
       throw new Error("User not Found");
     }
-    const deleted = await user.destroy();
+    const deleted = await deletedUser.destroy();
     return deleted;
   },
   generateAuthToken: async (user) => {
